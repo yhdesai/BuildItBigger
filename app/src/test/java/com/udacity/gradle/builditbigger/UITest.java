@@ -26,7 +26,7 @@ public class UITest {
     public void asyncTask_retrievesString() {
 
 
-        onView(withId(R.id.recipe_list))
+        onView(withId(R.id.jokebutton))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
         onView(withId(R.id.rv_ingredients)).check(matches(not(withText(""))));
