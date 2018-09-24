@@ -4,27 +4,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v7.app.AppCompatActivity;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
+import android.support.v7.app.AppCompatActivity;
 
 import java.io.IOException;
 
 
-public class MainActivity extends AppCompatActivity {
+public class JokeActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_joke);
     }
 
 
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view) {
 //        Joker myJoker = new Joker();
 //        String joke = myJoker.getJokes();
+        Log.d("button", "pressed");
 
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
 
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                         // options for running against local devappserver
                         // - 10.0.2.2 is localhost's IP address in Android emulator
                         // - turn off compression when running against local devappserver
-                        .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                        .setRootUrl("https://iot-elcbqx.appspot.com/_ah/api/")
                         .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                             @Override
                             public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
@@ -95,10 +98,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(String joke) {
             try {
-                String joke = result;
-                Intent intent = new Intent(MainActivity.this, Class.forName("io.github.yhdesai.androidviewerlibrary.MainActivity"));
+
+                Intent intent = new Intent(JokeActivity.this, Class.forName("io.github.yhdesai.androidviewerlibrary.MainActivity"));
                 intent.putExtra("joke", joke);
                 startActivity(intent);
             } catch (ClassNotFoundException e) {

@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String joke = getIntent().getStringExtra("joke");
-        TextView jokesView = findViewById(R.id.jokeView);
+        TextView jokesView = findViewById(R.id.jokeeViews);
         jokesView.setText(joke);
 
     }
